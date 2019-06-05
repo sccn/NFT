@@ -1,0 +1,23 @@
+NFT-2.1 includes support for Finite Element Method using the METU-FP toolkit. 
+
+The METU-FEM solver uses the PetSc framework for parallel numerical computation.
+It is hard to prepare and distribute portable binaries that use PetSc.
+
+In order to have FEM support, you will have to download and build the
+METU-FEM package. You will also need TETGEN for mesh generation.
+
+
+METU-FP:
+
+  homepage: http://www.eee.metu.edu.tr/metu-fp/
+
+  installation: Compile the toolkit, and copy the generated executable,
+                `forward` into the NFT-2.0/bin/ directory.
+
+TETGEN:
+
+  homepage: http://tetgen.org/
+
+  installation: Compile tetgen and copy the generated 'tetgen' executable,
+                into the NFT-2.0/bin/ directory.
+

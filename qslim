@@ -1,0 +1,11 @@
+#!/bin/sh
+OS=`uname -s`
+ARCH=`uname -p`
+case "${OS}-${ARCH}" in
+	( "Linux-x86_64" )
+	exec $0.64 "$@";;
+	( "Linux-i686" )
+	exec $0.32 "$@";;
+	( "Darwin-i386" )
+	exec $0.osx "$@";;
+esac
