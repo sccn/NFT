@@ -34,7 +34,7 @@ function vers = eegplugin_nft(fig, trystrs, catchstrs)
 %    addpath(path)
     
     
-    vers = 'nft2.1';
+    vers = 'nft2.2';
     if nargin < 3
         error('eegplugin_nft requires 3 arguments');
     end;
