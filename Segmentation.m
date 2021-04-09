@@ -297,6 +297,13 @@ if ~isequal(file, 0) && length(file) > 5
     % remove .hdr extension
     file = [path file(1:length(file)-4)];
     [x,y,z] = segm_readanalyze(file);
+    [K,L,M]=size(x);
+    if K==L && L==M && M==K && y(1)==1 && y(2)==1 && y(3)==1
+    else
+        error_msg = ['Please run Freesurfer pre-processing on the MR image: \n',...
+        'https://sccn.ucsd.edu/wiki/Chapter_02:_Head_Modeling_from_MR_Images'];
+        error( 'u:stuffed:it' , error_msg)
+    end
     set(handles.pbinhomog,'Enable','on');
     if get(handles.checkboxLRflip, 'Value') == 1
         % flip image left-right (image is flipped during MR acquisition)
@@ -554,7 +561,7 @@ function Runbutton_Callback(hObject, eventdata, handles)
 if handles.CurrentOperation == 1
     iter = str2num(get(handles.editNumberofIter, 'String'));
 %    ts   = str2num(get(handles.editTimeStep, 'String'));
-    ts = 0.0625;
+   ts = 0.0625;
     cond = str2num(get(handles.editConductance, 'String'));
     handles.parameters.filter.iter = iter;
     handles.parameters.filter.cond = cond;
