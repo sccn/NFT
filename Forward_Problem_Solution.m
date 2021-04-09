@@ -418,7 +418,7 @@ if (handles.mesh.num_boundaries < 3)
     errordlg('Mesh must have at least 3 layers');
     return
 end
-name = get(handles.editModelName(),'String');
+name = get(handles.editModelName,'String');
 if (isempty(name))
     errordlg('Please Enter Model Name');
     return
