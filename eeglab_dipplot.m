@@ -624,12 +624,12 @@
 %adding log message
 %
 
-function [outsources, XX, YY, ZZ, XO, YO, ZO] = dipplot( sourcesori, varargin )
+function [outsources, XX, YY, ZZ, XO, YO, ZO] = eeglab_dipplot( sourcesori, varargin )
     
     DEFAULTVIEW = [0 0 1];
         
     if nargin < 1
-        help dipplot;
+        help eeglab_dipplot;
         return;
     end;
         
@@ -757,13 +757,13 @@ function [outsources, XX, YY, ZZ, XO, YO, ZO] = dipplot( sourcesori, varargin )
         end;
     end;
     
-%     if strcmpi(g.coordformat, 'spherical')
-%          dat.sph2spm    = sph2spm;
-%     elseif strcmpi(g.coordformat, 'CTF')
-%         dat.sph2spm    = traditionaldipfit([0 0 0 0 0 0 10 -10 10]);
-%     else
-%         dat.sph2spm    = []; %traditional([0 0 0 0 0 pi 1 1 1]);
-%     end;
+    if strcmpi(g.coordformat, 'spherical')
+         dat.sph2spm    = sph2spm;
+    elseif strcmpi(g.coordformat, 'CTF')
+        dat.sph2spm    = traditionaldipfit([0 0 0 0 0 0 10 -10 10]);
+    else
+        dat.sph2spm    = []; %traditional([0 0 0 0 0 pi 1 1 1]);
+    end;
     
     dat.sph2spm=eye(4); % zeynep
     
@@ -888,9 +888,9 @@ function [outsources, XX, YY, ZZ, XO, YO, ZO] = dipplot( sourcesori, varargin )
         pos1 = [0 0 0.5 0.5];
         pos2 = [0 0.5 0.5 .5];
         pos3 = [.5 .5 0.5 .5]; if strcmp(g.summary, 'on2'), tmp = pos1; pos1 =pos3; pos3 = tmp; end;
-        axes('position', pos1);  newsources = dipplot(sourcesori, 'view', [1 0 0] , options{:}); axis off; 
-        axes('position', pos2); newsources = dipplot(sourcesori, 'view', [0 0 1] , options{:}); axis off; 
-        axes('position', pos3); newsources = dipplot(sourcesori, 'view', [0 -1 0], options{:}); axis off; 
+        axes('position', pos1);  newsources = eeglab_dipplot(sourcesori, 'view', [1 0 0] , options{:}); axis off; 
+        axes('position', pos2); newsources = eeglab_dipplot(sourcesori, 'view', [0 0 1] , options{:}); axis off; 
+        axes('position', pos3); newsources = eeglab_dipplot(sourcesori, 'view', [0 -1 0], options{:}); axis off; 
         axes('position', [0.5 0 0.5 0.5]); 
         colorcount = 1;
         if isfield(newsources, 'component')
@@ -928,9 +928,9 @@ function [outsources, XX, YY, ZZ, XO, YO, ZO] = dipplot( sourcesori, varargin )
                     'coordformat' g.coordformat 'mri' g.mri 'meshdata' g.meshdata 'axistight' g.axistight };
         figure('position', [ 100 600 600 200 ]); 
         axes('position', [-0.1 -0.1 1.2 1.2], 'color', 'k'); axis off; blackimg = zeros(10,10,3); image(blackimg);
-        axes('position', [0   0 1/3 1], 'tag', 'rear'); dipplot(sourcesori, options{:}, 'holdon', 'on'); view([0 -1 0]);
-        axes('position', [1/3 0 1/3 1], 'tag', 'top' ); dipplot(sourcesori, options{:}, 'holdon', 'on'); view([0  0 1]);
-        axes('position', [2/3 0 1/3 1], 'tag', 'side'); dipplot(sourcesori, options{:}, 'holdon', 'on'); view([1 -0.01 0]);
+        axes('position', [0   0 1/3 1], 'tag', 'rear'); eeglab_dipplot(sourcesori, options{:}, 'holdon', 'on'); view([0 -1 0]);
+        axes('position', [1/3 0 1/3 1], 'tag', 'top' ); eeglab_dipplot(sourcesori, options{:}, 'holdon', 'on'); view([0  0 1]);
+        axes('position', [2/3 0 1/3 1], 'tag', 'side'); eeglab_dipplot(sourcesori, options{:}, 'holdon', 'on'); view([1 -0.01 0]);
         set(gcf, 'paperpositionmode', 'auto');
         return;
     end;
@@ -1307,7 +1307,7 @@ function [outsources, XX, YY, ZZ, XO, YO, ZO] = dipplot( sourcesori, varargin )
                '    for tmpi = 1:' nbsrc ',' ...
                '        set(findobj(''parent'', gca, ''tag'', [ ''dipole'' int2str(tmpi) ]), ''visible'', ''off'');' ...
                '    end; clear tmpi;' ...
-               '    dipplot(gcbf);' ...               
+               '    eeglab_dipplot(gcbf);' ...               
                '    set(gcbo, ''string'', ''Plot all'');' ...
                    'else,' ...
                '    for tmpi = 1:' nbsrc ',' ...
@@ -1324,7 +1324,7 @@ function [outsources, XX, YY, ZZ, XO, YO, ZO] = dipplot( sourcesori, varargin )
                'tmpuserdat.axistight = ~tmpuserdat.axistight;' ...
                'set(gca, ''userdata'', tmpuserdat);' ...
                'clear tmpuserdat;' ...
-               'dipplot(gcbf);' ];
+               'eeglab_dipplot(gcbf);' ];
     viewstring = fastif(dat.axistight, 'Loose view', 'Tight view');
     enmesh     = fastif(isempty(g.meshdata) & strcmpi(g.coordformat, 'MNI'), 'off', 'on');
     if strcmpi(g.coordformat, 'CTF'), viewcor = 'view([0 1 0]);';  viewtop = 'view([0 0 -1]);'; vis = 'off';
@@ -1363,7 +1363,7 @@ function [outsources, XX, YY, ZZ, XO, YO, ZO] = dipplot( sourcesori, varargin )
                    'style', 'text', 'string', '');
     h = uicontrol( 'unit', 'normalized', 'position', [0 0.62 .15 .05], 'tag', 'tmp', 'userdata', 'editor', ...
                    'style', 'edit', 'string', '1', 'callback', ...
-                   [ 'dipplot(gcbf);' ] );
+                   [ 'eeglab_dipplot(gcbf);' ] );
     h = uicontrol( 'unit', 'normalized', 'position', [0 0.67 .15 .05], 'tag', 'tmp', ...
                        'style', 'pushbutton', 'string', 'Keep|Prev', 'callback', ...
                    [ 'editobj = findobj(''parent'', gcf, ''userdata'', ''editor'');' ...
@@ -1382,14 +1382,14 @@ function [outsources, XX, YY, ZZ, XO, YO, ZO] = dipplot( sourcesori, varargin )
                    'style', 'pushbutton', 'string', 'Next', 'callback', ...
                    [ 'editobj = findobj(''parent'', gcf, ''userdata'', ''editor'');' ...
                      'set(editobj, ''string'', num2str(str2num(get(editobj, ''string''))+1));' ...
-                     'dipplot(gcbf);' ...
+                     'eeglab_dipplot(gcbf);' ...
                      'clear editobj;' ]);
     h = uicontrol( 'unit', 'normalized', 'position', [0 0.82 .15 .05], 'tag', 'tmp', ...
                    'style', 'pushbutton', 'string', 'Keep|Next', 'callback', ...
                    [ 'editobj = findobj(''parent'', gcf, ''userdata'', ''editor'');' ...
                      'set(editobj, ''string'', num2str(str2num(get(editobj, ''string''))+1));' ...
                      'tmpobj = get(gcf, ''userdata'');' ...
-                     'dipplot(gcbf);' ...
+                     'eeglab_dipplot(gcbf);' ...
                      'set(tmpobj, ''visible'', ''on'');' ...
                      'clear editobj tmpobj;' ]);
     h = uicontrol( 'unit', 'normalized', 'position', [0 0.87 .15 .05], 'tag', 'tmp', ...
