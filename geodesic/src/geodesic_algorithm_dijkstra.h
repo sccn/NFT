@@ -6,7 +6,6 @@
 #include "geodesic_mesh_elements.h"
 #include <vector>
 #include <set>
-#include <assert.h>
 
 namespace geodesic{
 
@@ -86,7 +85,7 @@ protected:
 void GeodesicAlgorithmDijkstra::list_nodes_visible_from_source(MeshElementBase* p,
 															   std::vector<node_pointer>& storage)
 {
-	assert(p->type() != UNDEFINED_POINT);
+	Xassert(p->type() != UNDEFINED_POINT);
 
 	if(p->type() == FACE)
 	{
@@ -119,7 +118,7 @@ inline void GeodesicAlgorithmDijkstra::list_nodes_visible_from_node(node_pointer
 															 double threshold_distance)
 {
 	vertex_pointer v = node->vertex();
-	assert(storage.size() == distances.size());
+	Xassert(storage.size() == distances.size());
 
 	for(unsigned i=0; i<v->adjacent_edges().size(); ++i)
 	{

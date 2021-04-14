@@ -11,8 +11,6 @@
 subdivision_level = 5;     %number of additional vertices per edge; each mesh triangle will have roughly speaking subdivision_level^2 number of subdivision triangles
 number_of_isolines = 10;                     
 
-global geodesic_library;                
-geodesic_library = 'geodesic_debug';      %"release" is faster and "debug" does additional checks
 rand('state', 0);                         %comment this statement if you want to produce random mesh every time
 
 [vertices,faces] = create_flat_triangular_mesh(0.2, 0); 

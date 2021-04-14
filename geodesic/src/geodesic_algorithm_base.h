@@ -179,7 +179,7 @@ inline void GeodesicAlgorithmBase::set_stop_conditions(std::vector<SurfacePoint>
 				closest_vertex = possible_vertices[j];
 			}
 		}
-		assert(closest_vertex);
+		Xassert(closest_vertex);
 
 		m_stop_vertices[i].first = closest_vertex;
 		m_stop_vertices[i].second = min_distance;

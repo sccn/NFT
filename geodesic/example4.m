@@ -1,8 +1,6 @@
 % Advanced tuning: to save time, you can limit the propagation.
 % Danil Kirsanov, 09/2007 
 
-global geodesic_library;                
-geodesic_library = 'geodesic_debug';      %"release" is faster and "debug" does additional checks
 rand('state', 0);                         %comment this statement if you want to produce random mesh every time
 
 [vertices,faces] = create_flat_triangular_mesh(0.2, 0); 

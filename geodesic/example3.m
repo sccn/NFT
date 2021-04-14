@@ -1,8 +1,6 @@
 % You can place sources and destinations at any place of the mesh surface.
 % Danil Kirsanov, 09/2007 
 
-global geodesic_library;                
-geodesic_library = 'geodesic_debug';      %"release" is faster and "debug" does additional checks
 rand('state', 0);                         %comment this statement if you want to produce random mesh every time
 
 N = 120;                                  %number of points in a mesh

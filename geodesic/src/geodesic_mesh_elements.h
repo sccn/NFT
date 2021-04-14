@@ -5,7 +5,6 @@
 // here we define the building elements of the mesh: 
 // 3D-points, vertices, edges, faces, and surface points
 
-#include <assert.h>
 #include <cstddef>
 
 namespace geodesic{
@@ -40,14 +39,14 @@ public:
 	template<class DataPointer>
 	void set_allocation(DataPointer begin, unsigned size)
 	{
-		assert(begin != NULL || size == 0);
+		Xassert(begin != NULL || size == 0);
 		m_size = size;
 		m_begin = (iterator)begin;
 	}
 
 	Data& operator[](unsigned i)
 	{
-		assert(i < m_size);
+		Xassert(i < m_size);
 		return *(m_begin + i);
 	}
 
@@ -200,7 +199,7 @@ public:
 				return m_corner_angles[i];
 			}
 		}
-		assert(0);
+		Xassert(0);
 		return 0;
 	}
 
@@ -226,11 +225,11 @@ public:
 	{
 		if(adjacent_faces().size() == 1)
 		{
-			assert(adjacent_faces()[0]->id() == f->id());
+			Xassert(adjacent_faces()[0]->id() == f->id());
 			return NULL;
 		}
 
-		assert(adjacent_faces()[0]->id() == f->id() || 
+		Xassert(adjacent_faces()[0]->id() == f->id() || 
 			   adjacent_faces()[1]->id() == f->id());
 
 		return adjacent_faces()[0]->id() == f->id() ? 
@@ -239,7 +238,7 @@ public:
 
 	vertex_pointer opposite_vertex(vertex_pointer v)
 	{
-		assert(belongs(v));
+		Xassert(belongs(v));
 
 		return adjacent_vertices()[0]->id() == v->id() ?
 			   adjacent_vertices()[1] : adjacent_vertices()[0];
@@ -354,7 +353,7 @@ inline edge_pointer Face::opposite_edge(vertex_pointer v)
 			return e;
 		}
 	}
-	assert(0);
+	Xassert(0);
 	return NULL;
 }
 
@@ -368,13 +367,13 @@ inline vertex_pointer Face::opposite_vertex(edge_pointer e)
 			return v;
 		}
 	}
-	assert(0);
+	Xassert(0);
 	return NULL;
 }
 
 inline edge_pointer Face::next_edge(edge_pointer e, vertex_pointer v)
 {
-	assert(e->belongs(v));
+	Xassert(e->belongs(v));
 
 	for(unsigned i=0; i<3; ++i)
 	{
@@ -384,7 +383,7 @@ inline edge_pointer Face::next_edge(edge_pointer e, vertex_pointer v)
 			return next;
 		}
 	}
-	assert(0);
+	Xassert(0);
 	return NULL;
 }
 

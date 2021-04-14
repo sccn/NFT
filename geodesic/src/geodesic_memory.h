@@ -5,7 +5,6 @@
 //two fast and simple memory allocators
 
 #include <vector>
-#include <assert.h>
 #include <math.h>
 
 namespace geodesic{
@@ -41,7 +40,7 @@ public:
 
 	pointer allocate(unsigned const n)		//allocate n units
 	{
-		assert(n < m_block_size);
+		Xassert(n < m_block_size);
 
 		if(m_current_position + n >= m_block_size)
 		{
@@ -89,8 +88,8 @@ public:
 		m_block_size = block_size;
 		m_max_number_of_blocks = max_number_of_blocks;
 
-		assert(m_block_size > 0);
-		assert(m_max_number_of_blocks > 0);
+		Xassert(m_block_size > 0);
+		Xassert(m_max_number_of_blocks > 0);
 
 		m_current_position = 0;
 

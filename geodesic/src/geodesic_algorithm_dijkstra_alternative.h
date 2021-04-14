@@ -6,7 +6,6 @@
 #include "geodesic_mesh_elements.h"
 #include <vector>
 #include <set>
-#include <assert.h>
 
 namespace geodesic{
 
@@ -116,7 +115,7 @@ inline unsigned GeodesicAlgorithmDijkstraAlternative::best_source(SurfacePoint& 
 				min_vertex = v;
 			}
 		}
-		assert(min_vertex);
+		Xassert(min_vertex);
 		node_pointer node = &m_nodes[min_vertex->id()];
 		return node->source_index();
 	}
@@ -147,7 +146,7 @@ inline void GeodesicAlgorithmDijkstraAlternative::trace_back(SurfacePoint& desti
 				min_vertex = v;
 			}
 		}
-		assert(min_vertex);
+		Xassert(min_vertex);
 		path.push_back(SurfacePoint(min_vertex));
 	}
 
@@ -240,7 +239,7 @@ inline void GeodesicAlgorithmDijkstraAlternative::propagate(std::vector<SurfaceP
 				if(next_node->distance_from_source() < GEODESIC_INF)		//remove it from the queue
 				{
 					queue_type::iterator iter = m_queue.find(next_node);
-					assert(iter != m_queue.end());
+					Xassert(iter != m_queue.end());
 					m_queue.erase(iter);
 				}
 				next_node->distance_from_source() = min_node->distance_from_source() + e->length();

@@ -1,9 +1,6 @@
 % This example shows how to work with multiple meshes and algorithms simultaneously.
 % Danil Kirsanov, 09/2007 
 
-global geodesic_library;                
-geodesic_library = 'geodesic_debug';      %"release" is faster and "debug" does additional checks
-
 rand('state', 0);                         %comment this statement if you want to produce random mesh every time
 analysis = {};
                     

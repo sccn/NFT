@@ -7,8 +7,9 @@
 #include "geodesic_algorithm_exact_elements.h"
 #include <vector>
 #include <cmath>
-#include <assert.h>
 #include <set>
+
+#include <string.h>
 
 namespace geodesic{
 
@@ -207,7 +208,7 @@ inline void GeodesicAlgorithmExact::possible_traceback_edges(SurfacePoint& point
 
 inline long GeodesicAlgorithmExact::visible_from_source(SurfacePoint& point)	//negative if not visible
 {
-	assert(point.type() != UNDEFINED_POINT);
+	Xassert(point.type() != UNDEFINED_POINT);
 
 	if(point.type() == EDGE)		
 	{
@@ -215,7 +216,7 @@ inline long GeodesicAlgorithmExact::visible_from_source(SurfacePoint& point)	//n
 		list_pointer list = interval_list(e);
 		double position = std::min(point.distance(e->v0()), e->length());
 		interval_pointer interval = list->covering_interval(position);
-		//assert(interval);
+		//Xassert(interval);
 		if(interval && interval->visible_from_source())
 		{
 			return (long)interval->source_index();
@@ -248,7 +249,7 @@ inline long GeodesicAlgorithmExact::visible_from_source(SurfacePoint& point)	//n
 		return -1;
 	}
 
-	assert(0);
+	Xassert(0);
 	return 0;
 }
 
@@ -258,7 +259,7 @@ inline double GeodesicAlgorithmExact::compute_positive_intersection(double start
 																	double sin_alpha,
 																	double cos_alpha)
 {
-	assert(pseudo_y < 0);
+	Xassert(pseudo_y < 0);
 
 	double denominator = sin_alpha*(pseudo_x - start) - cos_alpha*pseudo_y;
 	if(denominator<0.0)
@@ -284,7 +285,7 @@ inline double GeodesicAlgorithmExact::compute_positive_intersection(double start
 inline void GeodesicAlgorithmExact::list_edges_visible_from_source(MeshElementBase* p,
 																   std::vector<edge_pointer>& storage)
 {
-	assert(p->type() != UNDEFINED_POINT);
+	Xassert(p->type() != UNDEFINED_POINT);
 
 	if(p->type() == FACE)
 	{
@@ -314,7 +315,7 @@ inline bool GeodesicAlgorithmExact::erase_from_queue(interval_pointer p)
 {
 	if(p->min() < GEODESIC_INF/10.0)// && p->min >= queue->begin()->first)
 	{
-		assert(m_queue.count(p)<=1);			//the set is unique
+		Xassert(m_queue.count(p)<=1);			//the set is unique
 
 		IntervalQueue::iterator it = m_queue.find(p);
 
@@ -331,9 +332,9 @@ inline bool GeodesicAlgorithmExact::erase_from_queue(interval_pointer p)
 inline unsigned GeodesicAlgorithmExact::intersect_intervals(interval_pointer zero, 
 															   IntervalWithStop* one)			//intersecting two intervals with up to three intervals in the end
 {
-	assert(zero->edge()->id() == one->edge()->id());
-	assert(zero->stop() > one->start() && zero->start() < one->stop());
-	assert(one->min() < GEODESIC_INF/10.0);
+	Xassert(zero->edge()->id() == one->edge()->id());
+	Xassert(zero->stop() > one->start() && zero->start() < one->stop());
+	Xassert(one->min() < GEODESIC_INF/10.0);
 
 	double const local_epsilon = SMALLEST_INTERVAL_RATIO*one->edge()->length(); 
 
@@ -546,7 +547,7 @@ inline void GeodesicAlgorithmExact::propagate(std::vector<SurfacePoint>& sources
 
 	while(!m_queue.empty())
 	{
-		m_queue_max_size = std::max(m_queue.size(), (size_t)m_queue_max_size);
+	  m_queue_max_size = std::max((unsigned int)m_queue.size(), m_queue_max_size);
 
 		unsigned const check_period = 10;
     	if(++m_iterations % check_period == 0)		//check if we covered all required vertices
@@ -562,7 +563,7 @@ inline void GeodesicAlgorithmExact::propagate(std::vector<SurfacePoint>& sources
 		edge_pointer edge = min_interval->edge();
 		list_pointer list = interval_list(edge);
 
-		assert(min_interval->d() < GEODESIC_INF);
+		Xassert(min_interval->d() < GEODESIC_INF);
 
 		bool const first_interval = min_interval->start() == 0.0;
 		//bool const last_interval = min_interval->stop() == edge->length();
@@ -666,11 +667,11 @@ inline void GeodesicAlgorithmExact::propagate(std::vector<SurfacePoint>& sources
 	{
 		list_pointer list = &m_edge_interval_lists[i];
 		interval_pointer p = list->first();
-		assert(p->start() == 0.0);
+		Xassert(p->start() == 0.0);
 		while(p->next())
 		{
-			assert(p->stop() == p->next()->start());
-			assert(p->d() < GEODESIC_INF);
+			Xassert(p->stop() == p->next()->start());
+			Xassert(p->d() < GEODESIC_INF);
 			p = p->next();
 		}
 	}*/
@@ -709,8 +710,8 @@ inline void GeodesicAlgorithmExact::update_list_and_queue(list_pointer list,
 												IntervalWithStop* candidates,	//up to two candidates
 												unsigned num_candidates)
 {
-	assert(num_candidates <= 2);
-	//assert(list->first() != NULL);
+	Xassert(num_candidates <= 2);
+	//Xassert(list->first() != NULL);
 	edge_pointer edge = list->edge();
 	double const local_epsilon = SMALLEST_INTERVAL_RATIO * edge->length(); 
 
@@ -738,7 +739,7 @@ inline void GeodesicAlgorithmExact::update_list_and_queue(list_pointer list,
 				first = candidates+1;
 				second = candidates;
 			}
-			assert(first->stop() == second->start());
+			Xassert(first->stop() == second->start());
 
 			first->compute_min_distance(first->stop());
 			second->compute_min_distance(second->stop());
@@ -786,7 +787,7 @@ inline void GeodesicAlgorithmExact::update_list_and_queue(list_pointer list,
 		interval_pointer previous = NULL;
 
 		interval_pointer p = list->first();
-		assert(p->start() == 0.0);
+		Xassert(p->start() == 0.0);
 
 		while(p != NULL && p->stop() - local_epsilon < q->start())
 		{
@@ -875,7 +876,7 @@ inline void GeodesicAlgorithmExact::update_list_and_queue(list_pointer list,
 				p->start() = start[0];
 			}
 
-			assert(!previous);
+			Xassert(!previous);
 
 			for(unsigned j=1; j<N; ++j)					
 			{
@@ -946,10 +947,10 @@ inline unsigned GeodesicAlgorithmExact::compute_propagated_parameters(double pse
 																		bool turn_right,
 																		IntervalWithStop* candidates)		//if it is the last interval on the edge
 {				
-	assert(pseudo_y<=0.0);
-	assert(d<GEODESIC_INF/10.0);
-	assert(begin<=end);
-	assert(first_interval ? (begin == 0.0) : true);
+	Xassert(pseudo_y<=0.0);
+	Xassert(d<GEODESIC_INF/10.0);
+	Xassert(begin<=end);
+	Xassert(first_interval ? (begin == 0.0) : true);
 
 	IntervalWithStop* p = candidates;
 
@@ -1038,7 +1039,7 @@ inline unsigned GeodesicAlgorithmExact::compute_propagated_parameters(double pse
 	p->d() = d;
 	p->pseudo_x() = cos_alpha*pseudo_x + sin_alpha*pseudo_y;
 	p->pseudo_y() = -sin_alpha*pseudo_x + cos_alpha*pseudo_y;
-	assert(p->pseudo_y() <= 0.0);
+	Xassert(p->pseudo_y() <= 0.0);
 
 	if(!(last_interval && turn_right))
 	{
@@ -1108,7 +1109,7 @@ inline void GeodesicAlgorithmExact::construct_propagated_intervals(bool invert,
 			first = candidates+1;
 			second = candidates;
 		}
-		assert(first->stop() == second->start());
+		Xassert(first->stop() == second->start());
 	}
 
 	if(first->start() < local_epsilon)
@@ -1138,7 +1139,7 @@ inline void GeodesicAlgorithmExact::construct_propagated_intervals(bool invert,
 
 			p->min() = 0.0;					//it will be changed later on
 
-			assert(p->start() < p->stop());
+			Xassert(p->start() < p->stop());
 		}
 	}
 	else				//now we have to invert the intervals 
@@ -1161,9 +1162,9 @@ inline void GeodesicAlgorithmExact::construct_propagated_intervals(bool invert,
 
 			p->min() = 0;
 
-			assert(p->start() < p->stop());
-			assert(p->start() >= 0.0);
-			assert(p->stop() <= edge->length());
+			Xassert(p->start() < p->stop());
+			Xassert(p->start() >= 0.0);
+			Xassert(p->stop() <= edge->length());
 		}
 	}
 }
@@ -1188,7 +1189,7 @@ inline interval_pointer GeodesicAlgorithmExact::best_first_interval(SurfacePoint
 															 double& best_interval_position, 
 															 unsigned& best_source_index)
 {
-	assert(point.type() != UNDEFINED_POINT);
+	Xassert(point.type() != UNDEFINED_POINT);
 
 	interval_pointer best_interval = NULL;	
 	best_total_distance = GEODESIC_INF;
@@ -1202,7 +1203,7 @@ inline interval_pointer GeodesicAlgorithmExact::best_first_interval(SurfacePoint
 		best_interval = list->covering_interval(best_interval_position);
 		if(best_interval)
 		{
-			//assert(best_interval && best_interval->d() < GEODESIC_INF);
+			//Xassert(best_interval && best_interval->d() < GEODESIC_INF);
 			best_total_distance = best_interval->signal(best_interval_position);
 			best_source_index = best_interval->source_index();
 		}
@@ -1325,7 +1326,7 @@ inline void GeodesicAlgorithmExact::trace_back(SurfacePoint& destination,		//tra
 									   position);
 
 			//std::cout << total_distance + length(path) << std::endl;
-			assert(total_distance<GEODESIC_INF);
+			Xassert(total_distance<GEODESIC_INF);
 			source_index = interval->source_index();
 
 			edge_pointer e = interval->edge();

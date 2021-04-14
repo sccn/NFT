@@ -5,7 +5,6 @@
 #include "geodesic_mesh_elements.h"
 #include <vector>
 #include <set>
-#include <assert.h>
 
 namespace geodesic{
 
@@ -78,8 +77,8 @@ protected:
 			}
 		}
 
-		//assert(best_node);
-		//assert(best_total_distance<GEODESIC_INF);
+		//Xassert(best_node);
+		//Xassert(best_total_distance<GEODESIC_INF);
 		if(best_total_distance > m_propagation_distance_stopped)		//result is unreliable
 		{
 			best_total_distance = GEODESIC_INF;
@@ -171,7 +170,7 @@ void GeodesicAlgorithmGraphBase<Node>::propagate(std::vector<SurfacePoint>& sour
 
 		node_pointer min_node = *m_queue.begin();
 		m_queue.erase(m_queue.begin());
-		assert(min_node->distance_from_source() < GEODESIC_INF);
+		Xassert(min_node->distance_from_source() < GEODESIC_INF);
 
 		visible_nodes.clear();
 		distances_between_nodes.clear();
@@ -190,7 +189,7 @@ void GeodesicAlgorithmGraphBase<Node>::propagate(std::vector<SurfacePoint>& sour
 				if(next_node->distance_from_source() < GEODESIC_INF)		//remove it from the queue
 				{
 					typename queue_type::iterator iter = m_queue.find(next_node);
-					assert(iter != m_queue.end());
+					Xassert(iter != m_queue.end());
 					m_queue.erase(iter);
 				}
 				next_node->distance_from_source() = min_node->distance_from_source() +

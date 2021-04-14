@@ -4,7 +4,6 @@
 
 // some constants and simple math functions
 
-#include <assert.h>
 #include <math.h>
 #include <limits>
 #include <fstream>
@@ -28,9 +27,9 @@ inline double cos_from_edges(double const a,			//compute the cosine of the angle
 							 double const b,
 							 double const c)
 {
-	assert(a>1e-50);
-	assert(b>1e-50);
-	assert(c>1e-50);
+	Xassert(a>1e-50);
+	Xassert(b>1e-50);
+	Xassert(c>1e-50);
 
 	double result = (b*b + c*c - a*a)/(2.0*b*c);
 	result = std::max(result, -1.0);
@@ -50,12 +49,12 @@ inline bool read_mesh_from_file(char* filename,
 								Faces& faces)
 {
 	std::ifstream file(filename);
-	assert(file.is_open());
+	Xassert(file.is_open());
 	if(!file.is_open()) return false;
 	
 	unsigned num_points;
 	file >> num_points;
-	assert(num_points>=3);
+	Xassert(num_points>=3);
 
 	unsigned num_faces;
 	file >> num_faces;
