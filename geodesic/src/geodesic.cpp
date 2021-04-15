@@ -1,8 +1,7 @@
-#include <boost/shared_ptr.hpp>
-
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <memory>
 
 #include "mex.h"
 
@@ -16,13 +15,18 @@ void Xassert_fail(const char *, const char *, unsigned int);
 #include "geodesic_algorithm_subdivision.h"
 #include "geodesic_algorithm_exact.h"
 
+#ifdef _MSC_VER 
+#define strcasecmp _stricmp
+#endif
 
+extern "C" {
 size_t strlcpy(char *dst, const char *src, size_t siz);
+}
 
-typedef boost::shared_ptr<geodesic::Mesh> mesh_shared_pointer;
+typedef std::shared_ptr<geodesic::Mesh> mesh_shared_pointer;
 std::vector<mesh_shared_pointer> meshes;
 
-typedef boost::shared_ptr<geodesic::GeodesicAlgorithmBase> algorithm_shared_pointer;
+typedef std::shared_ptr<geodesic::GeodesicAlgorithmBase> algorithm_shared_pointer;
 std::vector<algorithm_shared_pointer> algorithms;
 
 void gd_help( int nlhs, mxArray *plhs[], int nrhs, const mxArray*prhs[]);
