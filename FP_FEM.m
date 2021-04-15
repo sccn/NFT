@@ -162,11 +162,32 @@ end
 
 function set_session_changed(handles)
 % call when any change is made to the session edit boxes
-if (handles.session_changed ~= 1)
-    set(handles.sessionProgressText,'String','Value Changed!');
+% if (handles.session_changed ~= 1)
+%     set(handles.sessionProgressText,'String','Value Changed!');
+%     set(handles.pushbuttonCreateModel,'Enable','on');
+% end
+% handles.session_changed = 1;
+
+set(handles.pushbuttonCreateModel,'Enable','off');
+name = get(handles.editModelName,'String');
+cond1 = str2num(get(handles.editScalpCond, 'String'));
+cond2 = str2num(get(handles.editSkullCond, 'String'));
+cond3 = str2num(get(handles.editCSFCond, 'String'));
+cond4 = str2num(get(handles.editBrainCond, 'String'));
+
+if isempty(get(handles.editMeshName,'String'))
+    set(handles.sessionProgressText,'String', 'Please load a mesh.');
+elseif isempty(name)
+    set(handles.sessionProgressText,'String', 'Please enter session name.');
+elseif ~isfield(handles, 'sensors')
+    set(handles.sessionProgressText,'String', 'Please load sensors.');
+elseif (isempty(cond1) || isempty(cond2) || isempty(cond4))
+    set(handles.sessionProgressText,'String', 'Please Enter Conductivities');
+else
+    set(handles.sessionProgressText,'String', 'Ready to create Model');
     set(handles.pushbuttonCreateModel,'Enable','on');
 end
-handles.session_changed = 1;
+
 guidata(handles.figure1, handles);
 
 
@@ -298,7 +319,7 @@ end
      errordlg('Mesh must have at least 3 layers');
      return
  end
-name = get(handles.editModelName(),'String');
+name = get(handles.editModelName,'String');
 if (isempty(name))
     errordlg('Please Enter Session Name');
     return
@@ -593,8 +614,8 @@ function pushbuttonLoadSensors_Callback(hObject, eventdata, handles)
         end
     end
 %set_session_changed(handles);    
-update_display(handles);
-%set_session_changed(handles);
+%update_display(handles);
+set_session_changed(handles);
 
 %
 
@@ -689,12 +710,7 @@ if (isempty(handles.session))
     %set(handles.editScalpCond,'String',[]);
     %set(handles.editSkullCond,'String',[]);
     %set(handles.editCSFCond,'String',[]);
-    %set(handles.editBrainCond,'String',[]);
-    
-    set(handles.sessionProgressText,'String','No Session');
-    set(handles.pushbuttonCreateModel,'Enable','off');
-    handles.session_changed = 0;
-    guidata(handles.figure1, handles);
+    %set(handles.editBrainCond,'String',[]);    
 else
     set(handles.editModelName,'String',handles.session.name);
     set(handles.editScalpCond,'String',handles.session.cond(1));
@@ -708,6 +724,7 @@ else
     end
     set(handles.sessionProgressText,'String','FEM Session Loaded');
 end
+set_session_changed(handles);
 
 if isfield(handles,'sensors')
     set(handles.editNumberofSensors,'String',length(handles.sensors));
@@ -720,7 +737,7 @@ if isfield(handles.bemmesh,'num_boundaries')
         set(handles.uipanelCSF, 'visible', 'off')
     end
 end
-
+    
 % --------------------------------------------------------------------
 function Load_Mesh_Menu_Callback(hObject, eventdata, handles)
 % hObject    handle to Load_Mesh_Menu (see GCBO)

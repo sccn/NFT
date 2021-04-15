@@ -29,12 +29,9 @@
 % $Log: eegplugin_nft.m,v $
 
 function vers = eegplugin_nft(fig, trystrs, catchstrs)
-
-%path = '/data/projects/zeynep/NFT/NFT-2.1';
-%    addpath(path)
     
     
-    vers = 'nft2.2';
+    vers = 'nft2.3';
     if nargin < 3
         error('eegplugin_nft requires 3 arguments');
     end;

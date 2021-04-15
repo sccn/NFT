@@ -57,7 +57,7 @@ end
 rhs = zeros(mesh.num_nodes, size(dipoles,1));
 
 if model.mod < 1
-    for k = 1:size(dipoles,1)   % parfor
+    parfor k = 1:size(dipoles,1)
         rhs(:,k) = utilbem_pot_unbound(mesh.coord, model.node_cond, dipoles(k,:));
     end
 else
@@ -74,7 +74,7 @@ else
     model = session.model;
     s2 = model.cond(mesh.bnd(model.mod,3)); % outer
     s3 = model.cond(mesh.bnd(model.mod,2)); % inner
-    for k = 1:size(dipoles,1)   % parfor
+    parfor k = 1:size(dipoles,1)
         rhs(:,k) = utilbem_multilayer_rhs(mesh.coord, model.node_cond, model.ind_mod, ...
             model.ind_imesh, model.ind_imesh_mod, model.iinv, model.dmt, s2, s3, dipoles(k,:));
     end

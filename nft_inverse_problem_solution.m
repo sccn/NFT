@@ -18,7 +18,7 @@
 %   ss_name : sourcespace name (default: [subject_name '_sourcespace.dip'])
 %
 % Outputs:
-%   dip1 - dipole structure with fields posxyzsymm, momxyz, rv 
+%   dip1 - dipole structure with fields posxyz, momxyz, rv 
 %
 %
 % Author: Zeynep Akalin Acar, SCCN, 2012
