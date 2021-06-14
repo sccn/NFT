@@ -6,13 +6,26 @@
  
  
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
- % Realistic modeling from MRI
+ % Realistic modeling from MRI  %%
  
  % Do segmentation using the GUI
+ 
+ % Mesh generation:
  nft_mesh_generation(subject_name, of, nl)
+ 
+ % Generation of grid source space:
  nft_source_space_generation(subject_name, of)
- % Do co-registration using the GUI
+ 
+ % Do electrode co-registration using the GUI
+ 
+ % BEM forward problem for brain grid dipoles
  nft_forward_problem_solution(subject_name, session_name, of);
+ 
+  % FEM forward problem for brain grid dipoles
+ nft_fem_forward_problem_solution(subject_name, session_name, of);
+
+ 
+ % Dipole source localization
  dip1 = nft_inverse_problem_solution(subject_name, session_name, of, EEG, comp_index, plotting, elec_file)
   
  % Set NFT dipole structure to EEGLAB dipole structure
@@ -41,4 +54,22 @@ lof = length(of); if of(lof) ~= filesep of(lof+1) = filesep; end
  EEG.dipfit.mrifile =  mri_file;
  EEG.dipfit.coordformat = 'MNI';
  EEG.dipfit.model = EEG.etc.nft.model;
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
+ 
+ % Distributed source localization:
+ 
+ % generation of forward model: FS, FS-NFT co-registration, patch source
+ % space generation
+nft_dsl_forward_model_generation(subject_name, of, mri_file)
+
+ % BEM forward problem solution
+nft_forward_problem_solution(subject_name, session_name, of, 'ss_name', [subject_name 'FS_ss.dip'])
+
+ % FEM forward problem solution
+nft_fem_forward_problem_solution(subject_name, session_name, of, 'ss_name', [subject_name 'FS_ss.dip'])
+
+ % cortical source localization
+nft_dsl_inverse_problem_solution(subject_name, session_name, of, EEG, comp_index, selection)
+
  
