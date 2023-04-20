@@ -46,7 +46,7 @@ mfiledir = mfiledir(1:max(find(mfiledir == filesep) - 1));
      %bindir = [conf.nft_dir filesep 'bin' filesep]; % for eeglab
      bindir  = [mfiledir filesep];   % for eeglab
 if ismac
-    sufx = '_mac';
+    sufx = '.osx';
 elseif isunix
     sufx = '';
 elseif ispc
