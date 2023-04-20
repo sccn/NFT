@@ -45,10 +45,14 @@ mfiledir = mfiledir(1:max(find(mfiledir == filesep) - 1));
 % Add bin
      %bindir = [conf.nft_dir filesep 'bin' filesep]; % for eeglab
      bindir  = [mfiledir filesep];   % for eeglab
-if ispc
+if ismac
+    sufx = '_mac';
+elseif isunix
+    sufx = '';
+elseif ispc
     sufx = '.exe';
 else
-    sufx = '';
+    error('Platform not supported')
 end
 
 % Settings for 32 and 64 bit Linux
