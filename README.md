@@ -1,8 +1,8 @@
-### Open Source Matlab Toolbox for Neuroelectromagnetic Forward Head Modeling
+# Matlab Toolbox and EEGLAB plugin for Neuroelectromagnetic Forward Head Modeling
 
-![right](NFTsmall.jpg "wikilink")
+![Screenshot 2024-07-25 at 13 28 55](https://github.com/user-attachments/assets/8871c122-dba0-4e1d-a976-7a4a8f6f7c6b)
 
-### What is NFT?
+## What is NFT?
 
 Neuroelectromagnetic Forward Modeling Toolbox (NFT) is a MATLAB toolbox
 for generating realistic head models from available data (MRI and/or
@@ -21,7 +21,7 @@ the MATLAB command line. Function help messages and a user tutorial are
 included. The toolbox is freely available for noncommercial use and open
 source development under the GNU Public License.
 
-### Why NFT?
+## Why NFT?
 
 The NFT is released under an open source license, allowing researchers
 to contribute and improve on the work for the benefit of the
@@ -62,53 +62,12 @@ forward problem solution from available subject information:
     high-performance BEM implementation from the open source METU-FP
     Toolkit for bioelectromagnetic field computations.
 
-### Required Resources
+## Required Resources
 
 Matlab 7.0 or later running under any operating system (Linux, Windows).
 A large amount of RAM is useful - at least 2 GB (4-8 GB recommended for
 forward problem solution of realistic head models). The Matlab Image
 Processing toolbox is also recommended.
-
-### NFT Reference Paper
-
-Zeynep Akalin Acar & Scott Makeig, [Neuroelectromagnetic Forward Head
-Modeling
-Toolbox](http://sccn.ucsd.edu/%7Escott/pdf/Zeynep_NFT_Toolbox10.pdf).
-<em>Journal of Neuroscience Methods</em>, 2010
-
-Download
---------
-
-To download the NFT, go to the [NFT download
-page](http://sccn.ucsd.edu/nft/).
-
-NFT User's Manual
------------------
-
--   [Chapter 01: Getting Started with NFT](Chapter_01_Getting_Started_with_NFT "wikilink")
--   [Chapter 02: Head Modeling from MR Images](Chapter_02_Head_Modeling_from_MR_Images "wikilink")
--   [Chapter 03: Forward Model Generation](Chapter_03_Forward_Model_Generation "wikilink")
--   [Chapter 04: NFT Examples](Chapter_04_NFT_Examples "wikilink")
--   [Chapter 05: NFT Commands and Functions](Chapter_05_NFT_Commands_and_Functions "wikilink")
--   [Appendix A: BEM Mesh Format](NFT_Appendix_A)
--   [Appendix B: Function Reference](NFT_Appendix_B)
--   [Appendix C: Effect of brain-to-skull conductivity ratio estimate](NFT_Appendix_C)
-
-
--   [Click here to download the NFT User Manual as a PDF book](NFT_Tutorial.pdf)
-
-<div align=right>
-
-Creation and documentation by:
-
-Zeynep Akalin Acar
-
-Project Scientist
-
-zeynep@sccn.ucsd.edu
-
-</div>
-
 
 Pre-compiled binaries for the following 3rd party programs are distributed
 within the NFT toolbox for convinience of the users. The binaries are compiled
@@ -133,3 +92,24 @@ MATITK: Matlab and ITK
 homepage: http://www.sfu.ca/~vwchu/matitk.html
 
 Note: The MATITK shared libraries are installed in the 'mfiles' directory.
+
+## NFT Reference Paper
+
+Zeynep Akalin Acar & Scott Makeig, [Neuroelectromagnetic Forward Head
+Modeling
+Toolbox](http://sccn.ucsd.edu/%7Escott/pdf/Zeynep_NFT_Toolbox10.pdf).
+<em>Journal of Neuroscience Methods</em>, 2010
+
+# Download
+
+To download the NFT, go to the [NFT download
+page](http://sccn.ucsd.edu/nft/).
+
+# NFT User's Manual
+See the tutorial section for more information. [Click here to download the NFT User Manual as a PDF book](https://github.com/user-attachments/files/16383465/NFT_Tutorial.pdf)
+
+Creation and documentation by:
+Zeynep Akalin Acar
+Project Scientist
+zeynep@sccn.ucsd.edu
+
