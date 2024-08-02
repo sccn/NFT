@@ -95,8 +95,7 @@ Note: The MATITK shared libraries are installed in the 'mfiles' directory.
 
 # Download
 
-To download the NFT, go to the [NFT download
-page](http://sccn.ucsd.edu/nft/).
+To download the NFT, use the EEGLAB plugin manager.
 
 # NFT User's Manual
 See the tutorial section for more information. [Click here to download the NFT User Manual as a PDF book](https://github.com/user-attachments/files/16383465/NFT_Tutorial.pdf)
